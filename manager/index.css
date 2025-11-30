@@ -1,0 +1,164 @@
+/* ---------- Base ---------- */
+:root {
+  --bg: #121212;
+  --text: #ffffff;
+  --accent: #FF6B00;
+  --subtext: #FFB74D;
+  --card: #1E1E1E;
+  --btn-grad-1: #FF6B6B;
+  --btn-grad-2: #FF3D00;
+  --btn-reset-1: #D32F2F;
+  --btn-reset-2: #B71C1C;
+  --remove: #FF3D00;
+  --shadow: rgba(0,0,0,0.5);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+h1 {
+  margin: 0;
+  color: var(--accent);
+  text-align: center;
+  text-shadow: 1px 1px 5px #000000;
+}
+
+p {
+  margin-top: 0;
+  font-size: 16px;
+  color: var(--subtext);
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+select, input[type="text"], input[type="number"] {
+  margin: 5px;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  background: #1b1b1b;
+  color: var(--text);
+}
+
+button {
+  padding: 8px 15px;
+  margin: 5px 3px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(45deg, var(--btn-grad-1), var(--btn-grad-2));
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.4);
+}
+button.reset {
+  background: linear-gradient(45deg, var(--btn-reset-1), var(--btn-reset-2));
+}
+
+#total {
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 18px;
+  color: var(--subtext);
+  text-align: center;
+}
+
+ul { padding-left: 20px; }
+li {
+  margin: 5px 0;
+  color: var(--text);
+  transition: background 0.3s;
+}
+li:hover {
+  background-color: var(--card);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.remove {
+  margin-left: 10px;
+  color: var(--remove);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+canvas {
+  margin-top: 20px;
+  background-color: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+#erro {
+  color: var(--remove);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* ---------- Temas ---------- */
+/* Valentine Day: tons de rosa/vermelho, fundo escuro-romântico */
+.theme-valentine {
+  --bg: #1a0f14;
+  --text: #ffe8f0;
+  --accent: #ff3b6f;
+  --subtext: #ff9db8;
+  --card: #28131e;
+  --btn-grad-1: #ff5a8a;
+  --btn-grad-2: #ff2e63;
+  --btn-reset-1: #b31b3f;
+  --btn-reset-2: #7a0f29;
+  --remove: #ff2e63;
+  --shadow: rgba(255,46,99,0.25);
+}
+
+/* Halloween: laranja/roxo, fundo sombrio */
+.theme-halloween {
+  --bg: #0f0f14;
+  --text: #f8f7ff;
+  --accent: #ff7a00;
+  --subtext: #f4c27a;
+  --card: #1a1a22;
+  --btn-grad-1: #ff7a00;
+  --btn-grad-2: #c04300;
+  --btn-reset-1: #6a1b9a;
+  --btn-reset-2: #4a148c;
+  --remove: #ff7a00;
+  --shadow: rgba(106,27,154,0.25);
+}
+
+/* Brasil: verde, amarelo e azul */
+.theme-brasil {
+  --bg: #0d1b2a;           /* azul profundo */
+  --text: #e5f4ff;
+  --accent: #ffdf00;       /* amarelo da bandeira */
+  --subtext: #a8ff7a;      /* verde claro para destaque */
+  --card: #10253a;
+  --btn-grad-1: #009b3a;   /* verde bandeira */
+  --btn-grad-2: #002776;   /* azul bandeira */
+  --btn-reset-1: #b8860b;  /* dourado */
+  --btn-reset-2: #8b6a0b;
+  --remove: #ffdf00;
+  --shadow: rgba(0,39,118,0.25);
+}

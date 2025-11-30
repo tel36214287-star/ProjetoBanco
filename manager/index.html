@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Money Manager</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="theme-halloween">
+<h1>Money Control</h1>
+<p>because you are your CEO</p>
+
+<div class="controls">
+  <select id="tema">
+    <option value="theme-valentine">Valentine Day</option>
+    <option value="theme-halloween">Halloween</option>
+    <option value="theme-brasil">Cores do Brasil</option>
+  </select>
+  <input type="text" id="categoria" placeholder="Categoria">
+  <input type="number" id="valor" placeholder="Valor">
+  <button onclick="adicionarDados()">Adicionar</button>
+  <button class="reset" onclick="resetarDados()">Resetar Tudo</button>
+  <button onclick="salvarPDF()">Salvar em PDF</button>
+</div>
+
+<div id="erro"></div>
+<div id="total">Total: R$ 0,00</div>
+<ul id="lista"></ul>
+
+<canvas id="graficoPizza" width="400" height="400"></canvas>
+
+<script src="index.js"></script>
+</body>
+</body>
+</html>
