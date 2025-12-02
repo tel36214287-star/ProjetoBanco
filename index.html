@@ -1,23 +1,66 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <title>Money Manager</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="index.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+/* TEMAS */
+.theme-valentine { background: pink; color: #b30059; }
+.theme-halloween { background: #1a1a1a; color: orange; }
+.theme-brasil { background: #009c3b; color: yellow; }
+
+h1 { margin-bottom: 0; }
+
+.controls {
+    margin: 15px 0;
+}
+
+input, select, button {
+    padding: 8px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.reset {
+    background: red;
+    color: white;
+}
+
+#lista li {
+    margin: 6px 0;
+}
+
+</style>
 </head>
+
 <body class="theme-halloween">
+
 <h1>Money Control</h1>
 <p>because you are your CEO</p>
 
+<!-- CONTROLES -->
 <div class="controls">
-  <select id="tema">
+  <select id="tema" onchange="mudarTema()">
     <option value="theme-valentine">Valentine Day</option>
-    <option value="theme-halloween">Halloween</option>
+    <option value="theme-halloween" selected>Halloween</option>
     <option value="theme-brasil">Cores do Brasil</option>
   </select>
+
   <input type="text" id="categoria" placeholder="Categoria">
   <input type="number" id="valor" placeholder="Valor">
   <button onclick="adicionarDados()">Adicionar</button>
@@ -25,13 +68,105 @@
   <button onclick="salvarPDF()">Salvar em PDF</button>
 </div>
 
-<div id="erro"></div>
+<div id="erro" style="color:red;"></div>
 <div id="total">Total: R$ 0,00</div>
+
 <ul id="lista"></ul>
 
 <canvas id="graficoPizza" width="400" height="400"></canvas>
 
-<script src="index.js"></script>
-</body>
+<script>
+let dados = [];
+let grafico;
+
+// Atualiza o gráfico
+function atualizarGrafico() {
+    const ctx = document.getElementById("graficoPizza").getContext("2d");
+    const categorias = dados.map(d => d.categoria);
+    const valores = dados.map(d => d.valor);
+
+    if (grafico) grafico.destroy();
+
+    grafico = new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: categorias,
+            datasets: [{
+                data: valores
+            }]
+        }
+    });
+}
+
+// Atualiza a lista e o total
+function atualizarLista() {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    let total = 0;
+
+    dados.forEach(d => {
+        total += d.valor;
+        const li = document.createElement("li");
+        li.textContent = `${d.categoria}: R$ ${d.valor.toFixed(2)}`;
+        lista.appendChild(li);
+    });
+
+    document.getElementById("total").textContent = 
+        "Total: R$ " + total.toFixed(2);
+}
+
+// Adicionar dado
+function adicionarDados() {
+    const categoria = document.getElementById("categoria").value;
+    const valor = parseFloat(document.getElementById("valor").value);
+
+    if (!categoria || isNaN(valor)) {
+        document.getElementById("erro").textContent = "Preencha todos os campos!";
+        return;
+    }
+
+    document.getElementById("erro").textContent = "";
+
+    dados.push({ categoria, valor });
+
+    document.getElementById("categoria").value = "";
+    document.getElementById("valor").value = "";
+
+    atualizarLista();
+    atualizarGrafico();
+}
+
+// Resetar tudo
+function resetarDados() {
+    dados = [];
+    atualizarLista();
+    atualizarGrafico();
+}
+
+// Trocar tema
+function mudarTema() {
+    document.body.className = document.getElementById("tema").value;
+}
+
+// Salvar PDF
+async function salvarPDF() {
+    const { jsPDF } = window.jspdf;
+
+    const canvas = await html2canvas(document.body);
+    const img = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: "a4"
+    });
+
+    pdf.addImage(img, "PNG", 10, 10, 575, 820);
+    pdf.save("money_manager.pdf");
+}
+
+</script>
+
 </body>
 </html>
